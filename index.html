@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://illibejiep.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title></title>
+    <script src="./index_files/jquery.min.js"></script>
+    <style>
+        * {
+            cursor: none;
+        }
+        body {
+            background-color: black;
+            overflow: hidden;
+            margin: 0;
+        }
+        #babit {
+            width: 1000px;
+            margin-left: -500px;
+            position:fixed;
+            left: 50%;
+            bottom: -10px;
+            z-index: 100;
+        }
+        .dot {
+            border: 1px solid rgba(0,255,0,0.3);
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            left:50%;
+            top:50%;
+            z-index: -100;
+        }
+        #lineX {
+            height: 1px;
+            width: 100%;
+            border-top: 1px solid rgba(0,255,0,0.3);
+            position: absolute;
+            top:50%;
+            z-index: -100;
+        }
+        #lineY {
+            height: 100%;
+            width: 1px;
+            border-left: 1px solid rgba(0,255,0,0.3);
+            position: absolute;
+            left:50%;
+            z-index: -100;
+        }
+        a {
+            color: rgba(0,255,0,0.3);
+            text-decoration: none;
+        }
+        a:hover {
+            color: rgba(0,255,0,0.8);
+        }
+        #info {
+            padding: 50px;
+            text-align: right;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body><div id="dot5" class="dot" style="top: 245px; left: 805px;"></div><div id="dot4" class="dot" style="top: 245px; left: 805px;"></div><div id="dot3" class="dot" style="top: 245px; left: 805px;"></div><div id="dot2" class="dot" style="top: 245px; left: 805px;"></div><div id="dot1" class="dot" style="top: 245px; left: 805px;"></div><div id="dot0" class="dot" style="top: 245px; left: 805px;"></div>
+    <img id="babit" src="./index_files/babit.png">
+    <div id="lineX" style="top: 270px;"></div>
+    <div id="lineY" style="left: 830px;"></div>
+    <div id="info">
+        <a href="mailto:illibejiep@mail.com">illibejiep@mail.com</a><br>
+        <a href="https://github.com/illibejiep" target="_blank">github</a><br>
+        <a href="https://th.linkedin.com/pub/vasilii-lapin/a8/a32/989" target="_blank">linkedIn</a><br>
+    </div>
+
+<script>
+    var n = 5;
+    var dots = [];
+    var mX = 0;
+    var mY = 0;
+    for(var i=0;i<=n; i++){
+        $('body').prepend('<div id="dot' + i + '" class="dot"></div>');
+        dots[i] = {
+            top: screen.height/2,
+            left: screen.width/2,
+            width: 50,
+            height: 50
+        };
+    }
+
+    $(document).mousemove(function(event){
+        mX = event.pageX;
+        mY = event.pageY;
+        $('#lineY').css('left',mX);
+        $('#lineX').css('top',mY);
+    });
+
+    function nextFrame() {
+        $('div.dot').each(function(index) {
+            var top = dots[index].top;
+            top += Math.random()*(mY - top-25)/3;
+            $(this).css('top',top);
+            dots[index].top = top;
+
+            var left = dots[index].left;
+            left += Math.random()*(mX - left-25)/3;
+            $(this).css('left',left);
+            dots[index].left = left;
+
+            //$(this).width(Math.abs(mX - left)+dots[index].width/2);
+            //$(this).height(Math.abs(mY - top)+dots[index].height/2);
+        });
+    }
+    nextFrame();
+    setInterval(nextFrame,1000/60);
+</script>
+</body></html>
